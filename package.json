@@ -1,0 +1,9 @@
+{
+  "name": "taskmanagement-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix client",
+    "install:client": "npm install --prefix client"
+  }
+}
