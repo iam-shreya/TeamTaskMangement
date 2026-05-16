@@ -30,7 +30,7 @@ def login(request):
     from django.contrib.auth import get_user_model
     User = get_user_model()
 
-    email = request.data.get('email', '').lower()
+    email = request.data.get('email', '').lower().strip()
     password = request.data.get('password', '')
 
     if not email or not password:

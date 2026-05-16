@@ -102,16 +102,17 @@ class Command(BaseCommand):
                 'avatar_color': '#FF79C6',
             },
         )
+        
+        # Always ensure password and permissions are correct
+        shreya.set_password('Shreya@123')
+        shreya.is_superuser = True
+        shreya.is_staff = True
+        shreya.save()
+        
         if created:
-            shreya.set_password('Shreya@123')
-            shreya.save()
             self.stdout.write(self.style.SUCCESS(f'  [+] Created admin: Shreya (shreya@planex.dev / Shreya@123)'))
         else:
-            # Ensure she's always superuser
-            shreya.is_superuser = True
-            shreya.is_staff = True
-            shreya.save()
-            self.stdout.write(f'  [-] Shreya already exists (updated permissions)')
+            self.stdout.write(f'  [-] Shreya already exists (updated password & permissions)')
 
         # ── 2. Create dummy members ───────────────────────────────────────
         users = {'Shreya': shreya}

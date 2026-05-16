@@ -16,10 +16,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = os.environ.get(
-    'ALLOWED_HOSTS',
-    'localhost,127.0.0.1,0.0.0.0,.railway.app,teamtaskmangement-production.up.railway.app'
-).split(',')
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     'CSRF_TRUSTED_ORIGINS',
@@ -128,11 +125,7 @@ SIMPLE_JWT = {
 
 # ──────────────────────────── CORS ───────────────────────────────
 
-CORS_ALLOW_ALL_ORIGINS = DEBUG
-CORS_ALLOWED_ORIGINS = os.environ.get(
-    'CORS_ALLOWED_ORIGINS',
-    'http://localhost:5173,https://teamtaskmangement-production.up.railway.app'
-).split(',')
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # ──────────────────────── Static files ───────────────────────────
