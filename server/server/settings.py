@@ -1,6 +1,3 @@
-import dj_database_url
-from decouple import config
-import os
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -17,14 +14,16 @@ SECRET_KEY = os.environ.get(
     'django-insecure-kx!9v3s^m4h&q2p7r+t#w8y$z1b6c5d0e-f*g@j(l)n'
 )
 
-DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 'yes')
+DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
 ALLOWED_HOSTS = os.environ.get(
-    'ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0'
+    'ALLOWED_HOSTS',
+    'localhost,127.0.0.1,0.0.0.0,.railway.app,teamtaskmangement-production.up.railway.app'
 ).split(',')
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
-    'CSRF_TRUSTED_ORIGINS', 'http://localhost:5173'
+    'CSRF_TRUSTED_ORIGINS',
+    'http://localhost:5173,https://teamtaskmangement-production.up.railway.app'
 ).split(',')
 
 
@@ -131,7 +130,8 @@ SIMPLE_JWT = {
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = os.environ.get(
-    'CORS_ALLOWED_ORIGINS', 'http://localhost:5173'
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:5173,https://teamtaskmangement-production.up.railway.app'
 ).split(',')
 
 
