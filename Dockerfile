@@ -20,8 +20,8 @@ RUN npm install && npm run build
 # Setup Django
 WORKDIR /app
 COPY server/ ./server/
-RUN mkdir -p server/staticfiles && \
-    cp -r client/dist server/staticfiles/
+RUN mkdir -p server/build && \
+    cp -r client/dist/* server/build/
 
 WORKDIR /app/server
 EXPOSE 8000
