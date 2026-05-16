@@ -1,0 +1,2 @@
+echo [variables] > nixpacks.toml
+echo NODE_VERSION = "20" >> nixpacks.toml
