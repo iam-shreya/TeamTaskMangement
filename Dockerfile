@@ -1,8 +1,7 @@
-# Multi-stage Docker build for Railway deployment
-FROM node:18-alpine AS frontend
+FROM node:20-slim AS frontend
 WORKDIR /app/client
 COPY client/package*.json ./
-RUN npm ci
+RUN npm install
 COPY client/ ./
 RUN npm run build
 
@@ -11,8 +10,7 @@ WORKDIR /app
 COPY server/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY server/ ./
-COPY --from=frontend /app/client/dist ./build
-ENV PYTHONUNBUFFERED=1
-RUN python manage.py collectstatic --noinput 2>/dev/null || true
+COPY --from=frontend /app/client/dist ./staticfiles/dist
+
 EXPOSE 8000
-CMD sh -c "python manage.py migrate && gunicorn server.wsgi --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+CMD ["gunicorn", "server.wsgi:application", "--bind", "0.0.0.0:8000"]
