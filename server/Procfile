@@ -1,0 +1,1 @@
+web: cd server && python manage.py migrate && gunicorn server.wsgi --bind 0.0.0.0:$PORT
