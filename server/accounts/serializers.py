@@ -22,15 +22,22 @@ class SignupSerializer(serializers.ModelSerializer):
         fields = ['name', 'email', 'password']
 
     def validate_email(self, value):
-        if User.objects.filter(email=value.lower()).exists():
+        clean_email = value.lower().strip()
+        if User.objects.filter(email=clean_email).exists():
             raise serializers.ValidationError('A user with this email already exists.')
-        return value.lower()
+        return clean_email
 
     def create(self, validated_data):
         import random
+        import uuid
         colors = ['#6C63FF', '#00D4AA', '#FF6B6B', '#FFB86C', '#50C8FF', '#FF79C6', '#8BE9FD']
+        
+        # Generate a truly unique username using uuid to avoid IntegrityError (500)
+        base_username = validated_data['email'].split('@')[0][:100]
+        unique_username = f"{base_username}_{uuid.uuid4().hex[:8]}"
+        
         user = User.objects.create_user(
-            username=validated_data['email'].split('@')[0],
+            username=unique_username,
             email=validated_data['email'],
             name=validated_data['name'],
             password=validated_data['password'],
