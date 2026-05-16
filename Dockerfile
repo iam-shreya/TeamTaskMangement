@@ -31,4 +31,4 @@ RUN python manage.py collectstatic --noinput 2>/dev/null || true
 # Railway sets PORT dynamically; default to 8000 for local dev
 ENV PORT=8000
 EXPOSE $PORT
-CMD sh -c "python manage.py migrate --noinput && gunicorn server.wsgi:application --bind 0.0.0.0:\$PORT"
+CMD sh -c "python manage.py migrate --noinput && python manage.py seed_data && gunicorn server.wsgi:application --bind 0.0.0.0:\$PORT"

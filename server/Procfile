@@ -1,1 +1,1 @@
-web: cd server && python manage.py migrate && gunicorn server.wsgi --bind 0.0.0.0:8000
+web: cd server && python manage.py migrate --noinput && python manage.py seed_data && gunicorn server.wsgi --bind 0.0.0.0:$PORT
